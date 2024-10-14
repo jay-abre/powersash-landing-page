@@ -1,0 +1,33 @@
+# Node modules
+node_modules/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Dependency directories
+jspm_packages/
+
+# Build directories
+dist/
+build/
+
+# Temporary files
+tmp/
+temp/
+
+# IDE specific files
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# Tailwind CSS generated files
+tailwind.css
+tailwind.css.map
+
+# Environment variables
+.env
