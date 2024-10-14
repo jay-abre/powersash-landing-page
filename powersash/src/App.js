@@ -1,12 +1,20 @@
+// src/App.js
 import React from 'react';
-import LandingPage from "./pages/LandingPage";
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import LandingPage from './pages/LandingPage';
+import ProductListPage from './pages/ProductListPage';
 import './index.css';
 
 function App() {
     return (
-        <div className="App">
-            <LandingPage />
-        </div>
+        <Router>
+            <div className="App">
+                <Routes>
+                    <Route exact path="/" element={<LandingPage />} />
+                    <Route path="/products" element={<ProductListPage />} />
+                </Routes>
+            </div>
+        </Router>
     );
 }
 
