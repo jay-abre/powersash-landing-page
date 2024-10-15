@@ -1,9 +1,9 @@
+// src/pages/LandingPage.js
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { ChevronRight, Menu, X } from 'lucide-react';
 import Header from '../components/Header';
 import HeroSection from '../components/HeroSection';
 import ProductsSection from '../components/ProductsSection';
+import ProjectsSection from '../components/ProjectsSection';
 import AboutSection from '../components/AboutSection';
 import ContactSection from '../components/ContactSection';
 import Footer from '../components/Footer';
@@ -26,6 +26,7 @@ const LandingPage = () => {
             <main>
                 <HeroSection />
                 <ProductsSection />
+                <ProjectsSection />
                 <AboutSection />
                 <ContactSection />
             </main>

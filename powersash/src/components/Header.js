@@ -1,8 +1,9 @@
+// src/components/Header.js
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 
-const Header: React.FC<{ isScrolled: boolean, isMobileMenuOpen: boolean, setIsMobileMenuOpen: React.Dispatch<React.SetStateAction<boolean>> }> = ({ isScrolled, isMobileMenuOpen, setIsMobileMenuOpen }) => {
+const Header = ({ isScrolled, isMobileMenuOpen, setIsMobileMenuOpen }) => {
     return (
         <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-[#F8F6F3] shadow-md' : 'bg-transparent'}`}>
             <div className="container mx-auto px-4 py-4 flex justify-between items-center">
@@ -14,7 +15,7 @@ const Header: React.FC<{ isScrolled: boolean, isMobileMenuOpen: boolean, setIsMo
                     </div>
                 </a>
                 <nav className="hidden md:flex space-x-6">
-                    {['Products', 'About', 'Contact'].map((item) => (
+                    {['Products', 'Projects', 'About', 'Contact'].map((item) => (
                         <a key={item} href={`#${item.toLowerCase()}`} className={`transition-colors duration-300 ${isScrolled ? 'text-[#A48374] hover:text-[#3A2D28]' : 'text-[#F8F6F3] hover:text-[#D1C7BD]'}`}>{item}</a>
                     ))}
                 </nav>
@@ -32,7 +33,7 @@ const Header: React.FC<{ isScrolled: boolean, isMobileMenuOpen: boolean, setIsMo
                     exit={{ opacity: 0, y: -20 }}
                     className="md:hidden bg-[#F8F6F3] shadow-lg"
                 >
-                    {['Products', 'About', 'Contact'].map((item) => (
+                    {['Products', 'Projects', 'About', 'Contact'].map((item) => (
                         <a key={item} href={`#${item.toLowerCase()}`} className="block py-2 px-4 text-[#A48374] hover:bg-[#EBE3DB]" onClick={() => setIsMobileMenuOpen(false)}>{item}</a>
                     ))}
                 </motion.div>

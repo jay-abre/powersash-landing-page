@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ChevronRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const categories = [
     { name: "Panel Doors", image: "/PanelDoor.png" },
@@ -23,18 +24,20 @@ const ProductsSection: React.FC = () => {
                             transition={{ duration: 0.5 }}
                             className="bg-[#EBE3DB] rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1"
                         >
-                            <img src={category.image} alt={category.name} className="w-full h-48 object-cover" />
-                            <div className="p-6">
-                                <h4 className="font-semibold text-lg mb-2 text-[#3A2D28]">{category.name}</h4>
-                            </div>
+                            <Link to={`/products`}>
+                                <img src={category.image} alt={category.name} className="w-full h-48 object-cover" />
+                                <div className="p-6">
+                                    <h4 className="font-semibold text-lg mb-2 text-[#3A2D28]">{category.name}</h4>
+                                </div>
+                            </Link>
                         </motion.div>
                     ))}
                 </div>
                 <div className="text-center mt-12">
-                    <a href="/products" className="inline-flex items-center bg-[#CBAD8D] text-[#3A2D28] px-8 py-3 rounded-full font-semibold hover:bg-[#A48374] transition-colors">
+                    <Link to="/products" className="inline-flex items-center bg-[#CBAD8D] text-[#3A2D28] px-8 py-3 rounded-full font-semibold hover:bg-[#A48374] transition-colors">
                         View All Products
                         <ChevronRight className="ml-2 h-5 w-5" />
-                    </a>
+                    </Link>
                 </div>
             </div>
         </section>
