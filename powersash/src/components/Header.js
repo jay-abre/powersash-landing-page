@@ -1,27 +1,41 @@
-// src/components/Header.js
 import React from 'react';
+import { motion } from 'framer-motion';
+import { Menu, X } from 'lucide-react';
 
-function Header() {
+const Header: React.FC<{ isScrolled: boolean, isMobileMenuOpen: boolean, setIsMobileMenuOpen: React.Dispatch<React.SetStateAction<boolean>> }> = ({ isScrolled, isMobileMenuOpen, setIsMobileMenuOpen }) => {
     return (
-        <header className="sticky top-0 z-50 backdrop-blur-md bg-gray-900/70">
+        <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-[#F8F6F3] shadow-md' : 'bg-transparent'}`}>
             <div className="container mx-auto px-4 py-4 flex justify-between items-center">
                 <a href="/" className="flex items-center space-x-2">
                     <img src="/logo.jpg" alt="Power Sash Logo" width={40} height={40} className="rounded-full" />
-                    <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-amber-400 to-orange-600">Power Sash</span>
+                    <span className={`text-xl font-bold transition-colors duration-300 ${isScrolled ? 'text-[#3A2D28]' : 'text-[#F8F6F3]'}`}>Power Sash</span>
                 </a>
                 <nav className="hidden md:flex space-x-6">
-                    <a href="#products" className="hover:text-amber-400 transition-colors">Products</a>
-                    <a href="#about" className="hover:text-amber-400 transition-colors">About</a>
-                    <a href="#contact" className="hover:text-amber-400 transition-colors">Contact</a>
+                    {['Products', 'About', 'Contact'].map((item) => (
+                        <a key={item} href={`#${item.toLowerCase()}`} className={`transition-colors duration-300 ${isScrolled ? 'text-[#A48374] hover:text-[#3A2D28]' : 'text-[#F8F6F3] hover:text-[#D1C7BD]'}`}>{item}</a>
+                    ))}
                 </nav>
-                <button className="md:hidden text-amber-400">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-6 h-6">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                    </svg>
+                <button
+                    className={`md:hidden transition-colors duration-300 ${isScrolled ? 'text-[#3A2D28]' : 'text-[#F8F6F3]'}`}
+                    onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                >
+                    {isMobileMenuOpen ? <X /> : <Menu />}
                 </button>
             </div>
+            {isMobileMenuOpen && (
+                <motion.div
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    className="md:hidden bg-[#F8F6F3] shadow-lg"
+                >
+                    {['Products', 'About', 'Contact'].map((item) => (
+                        <a key={item} href={`#${item.toLowerCase()}`} className="block py-2 px-4 text-[#A48374] hover:bg-[#EBE3DB]" onClick={() => setIsMobileMenuOpen(false)}>{item}</a>
+                    ))}
+                </motion.div>
+            )}
         </header>
     );
-}
+};
 
 export default Header;

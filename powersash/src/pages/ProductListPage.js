@@ -32,31 +32,31 @@ function ProductListPage() {
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 text-white">
-            <header className="sticky top-0 z-50 backdrop-blur-md bg-gray-900/70">
+        <div className="min-h-screen bg-[#F8F6F3] text-[#3A2D28]">
+            <header className="sticky top-0 z-50 backdrop-blur-md bg-[#F8F6F3]/70">
                 <div className="container mx-auto px-4 py-4 flex justify-between items-center">
                     <a href="/" className="flex items-center space-x-2">
                         <img src="/logo.jpg" alt="Power Sash Logo" width={40} height={40} className="rounded-full" />
-                        <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-amber-400 to-orange-600">Power Sash</span>
+                        <span className="text-xl font-bold">Power Sash</span>
                     </a>
                     <nav className="hidden md:flex space-x-6">
-                        <a href="/" className="hover:text-amber-400 transition-colors">Home</a>
-                        <a href="#" className="text-amber-400">Products</a>
-                        <a href="#contact" className="hover:text-amber-400 transition-colors">Contact</a>
+                        <a href="/" className="hover:text-[#A48374] transition-colors">Home</a>
+                        <a href="#" className="text-[#A48374]">Products</a>
+                        <a href="#contact" className="hover:text-[#A48374] transition-colors">Contact</a>
                     </nav>
                 </div>
             </header>
 
             <main className="container mx-auto px-4 py-8">
-                <h1 className="text-4xl font-bold text-center mb-12 bg-clip-text text-transparent bg-gradient-to-r from-amber-400 to-orange-600">Our Products</h1>
+                <h1 className="text-4xl font-bold text-center mb-12">Our Products</h1>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {currentProducts.map((product) => (
-                        <div key={product.id} className="bg-gray-700 rounded-lg overflow-hidden transform hover:scale-105 transition-transform duration-300">
+                        <div key={product.id} className="bg-[#EBE3DB] rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
                             <img src={product.image} alt={product.name} className="w-full h-48 object-cover" />
                             <div className="p-6">
-                                <h3 className="font-semibold text-lg mb-2 text-amber-400">{product.name}</h3>
-                                <p className="text-gray-300">{product.description}</p>
+                                <h3 className="font-semibold text-lg mb-2">{product.name}</h3>
+                                <p className="text-[#A48374]">{product.description}</p>
                             </div>
                         </div>
                     ))}
@@ -68,7 +68,7 @@ function ProductListPage() {
                             key={i}
                             onClick={() => paginate(i + 1)}
                             className={`mx-1 px-3 py-1 rounded ${
-                                currentPage === i + 1 ? 'bg-amber-400 text-gray-900' : 'bg-gray-700 text-amber-400'
+                                currentPage === i + 1 ? 'bg-[#CBAD8D] text-[#3A2D28]' : 'bg-[#EBE3DB] text-[#A48374]'
                             }`}
                         >
                             {i + 1}
@@ -77,13 +77,13 @@ function ProductListPage() {
                 </div>
             </main>
 
-            <footer className="bg-gray-900 py-8 mt-12">
+            <footer className="bg-[#3A2D28] py-8 mt-12">
                 <div className="container mx-auto px-4">
                     <div className="flex flex-col md:flex-row justify-between items-center">
-                        <p className="text-gray-400">&copy; 2024 Power Sash Enterprises. All rights reserved.</p>
+                        <p className="text-[#F8F6F3]">&copy; 2024 Power Sash Enterprises. All rights reserved.</p>
                         <nav className="flex space-x-4 mt-4 md:mt-0">
-                            <a href="#" className="text-gray-400 hover:text-amber-400 transition-colors">Privacy Policy</a>
-                            <a href="#" className="text-gray-400 hover:text-amber-400 transition-colors">Terms of Service</a>
+                            <a href="#" className="text-[#D1C7BD] hover:text-[#CBAD8D] transition-colors">Privacy Policy</a>
+                            <a href="#" className="text-[#D1C7BD] hover:text-[#CBAD8D] transition-colors">Terms of Service</a>
                         </nav>
                     </div>
                 </div>

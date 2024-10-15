@@ -1,5 +1,6 @@
-// src/pages/LandingPage.js
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
+import { ChevronRight, Menu, X } from 'lucide-react';
 import Header from '../components/Header';
 import HeroSection from '../components/HeroSection';
 import ProductsSection from '../components/ProductsSection';
@@ -7,11 +8,22 @@ import AboutSection from '../components/AboutSection';
 import ContactSection from '../components/ContactSection';
 import Footer from '../components/Footer';
 
-function LandingPage() {
+const LandingPage = () => {
+    const [isScrolled, setIsScrolled] = useState(false);
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            setIsScrolled(window.scrollY > 10);
+        };
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
     return (
-        <div className="flex flex-col min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 text-white">
-            <Header />
-            <main className="flex-grow">
+        <div className="min-h-screen bg-gray-50 text-gray-900">
+            <Header isScrolled={isScrolled} isMobileMenuOpen={isMobileMenuOpen} setIsMobileMenuOpen={setIsMobileMenuOpen} />
+            <main>
                 <HeroSection />
                 <ProductsSection />
                 <AboutSection />
@@ -20,6 +32,6 @@ function LandingPage() {
             <Footer />
         </div>
     );
-}
+};
 
 export default LandingPage;

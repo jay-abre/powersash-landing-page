@@ -1,27 +1,19 @@
-// src/components/Header.js
 import React from 'react';
 
-function Header() {
+function Footer() {
     return (
-        <header className="sticky top-0 z-50 backdrop-blur-md bg-gray-900/70">
-            <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-                <a href="/" className="flex items-center space-x-2">
-                    <img src="/logo.jpg" alt="Power Sash Logo" width={40} height={40} className="rounded-full" />
-                    <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-amber-400 to-orange-600">Power Sash</span>
-                </a>
-                <nav className="hidden md:flex space-x-6">
-                    <a href="/" className="hover:text-amber-400 transition-colors">Home</a>
-                    <a href="/products" className="hover:text-amber-400 transition-colors">Products</a>
-                    <a href="#contact" className="hover:text-amber-400 transition-colors">Contact</a>
-                </nav>
-                <button className="md:hidden text-amber-400">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-6 h-6">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                    </svg>
-                </button>
+        <footer className="bg-[#3A2D28] text-[#F8F6F3] py-8">
+            <div className="container mx-auto px-4">
+                <div className="flex flex-col md:flex-row justify-between items-center">
+                    <p>&copy; 2024 Power Sash Enterprises. All rights reserved.</p>
+                    <nav className="flex space-x-4 mt-4 md:mt-0">
+                        <a href="#" className="text-[#D1C7BD] hover:text-[#CBAD8D] transition-colors">Privacy Policy</a>
+                        <a href="#" className="text-[#D1C7BD] hover:text-[#CBAD8D] transition-colors">Terms of Service</a>
+                    </nav>
+                </div>
             </div>
-        </header>
+        </footer>
     );
 }
 
-export default Header;
+export default Footer;
