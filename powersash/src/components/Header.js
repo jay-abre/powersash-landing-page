@@ -8,7 +8,10 @@ const Header: React.FC<{ isScrolled: boolean, isMobileMenuOpen: boolean, setIsMo
             <div className="container mx-auto px-4 py-4 flex justify-between items-center">
                 <a href="/" className="flex items-center space-x-2">
                     <img src="/logo.jpg" alt="Power Sash Logo" width={40} height={40} className="rounded-full" />
-                    <span className={`text-xl font-bold transition-colors duration-300 ${isScrolled ? 'text-[#3A2D28]' : 'text-[#F8F6F3]'}`}>Power Sash</span>
+                    <div className="flex flex-col">
+                        <span className={`text-xl font-bold transition-colors duration-300 ${isScrolled ? 'text-[#3A2D28]' : 'text-[#F8F6F3]'}`}>powersashent</span>
+                        <span className={`text-sm transition-colors duration-300 ${isScrolled ? 'text-[#3A2D28]' : 'text-[#F8F6F3]'}`}>Power Sash Enterprises</span>
+                    </div>
                 </a>
                 <nav className="hidden md:flex space-x-6">
                     {['Products', 'About', 'Contact'].map((item) => (
