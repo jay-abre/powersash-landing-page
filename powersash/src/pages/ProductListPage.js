@@ -1,6 +1,8 @@
-import React, {useState, useEffect} from 'react';
-import Header from '../components/Header';
-
+import React, { useState, useEffect } from 'react';
+import { motion, useAnimation } from 'framer-motion';
+import { ChevronDown } from 'lucide-react';
+import ProductListHeader from "../components/ProductListHeader";
+import Footer from '../components/Footer';
 const categories = [
     {
         name: "Panel Doors",
@@ -174,15 +176,14 @@ const categories = [
         ],
     },
 ];
-
-
-function ProductListPage() {
+const ProductListPage: React.FC = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [selectedCategory, setSelectedCategory] = useState(categories[0].name);
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const productsPerPage = 9;
+    const controls = useAnimation();
 
     useEffect(() => {
         const handleScroll = () => {
@@ -192,34 +193,96 @@ function ProductListPage() {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    const handleCategoryChange = (event) => {
+    useEffect(() => {
+        controls.start({
+            opacity: 1,
+            y: 0,
+            transition: { duration: 0.8, delay: 0.2 }
+        });
+    }, [controls]);
+
+    const handleCategoryChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setSelectedCategory(event.target.value);
-        setCurrentPage(1); // Reset to first page when category changes
+        setCurrentPage(1);
     };
 
-    const selectedProducts = categories.find(category => category.name === selectedCategory).products;
+    const selectedProducts = categories.find(category => category.name === selectedCategory)?.products || [];
     const indexOfLastProduct = currentPage * productsPerPage;
     const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
     const currentProducts = selectedProducts.slice(indexOfFirstProduct, indexOfLastProduct);
 
-    const paginate = (pageNumber) => setCurrentPage(pageNumber);
+    const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
-    const openModal = (product) => setSelectedProduct(product);
+    const openModal = (product: any) => setSelectedProduct(product);
     const closeModal = () => setSelectedProduct(null);
 
     return (
         <div className="min-h-screen bg-[#F8F6F3] text-[#3A2D28]">
-            <Header
-                isScrolled={isScrolled}
-                isMobileMenuOpen={isMobileMenuOpen}
-                setIsMobileMenuOpen={setIsMobileMenuOpen}
-            />
-            <main className="container mx-auto px-4 py-8">
-                <h1 className="text-4xl font-bold text-center mb-12">Our Products</h1>
+            <ProductListHeader isScrolled={isScrolled} isMobileMenuOpen={isMobileMenuOpen} setIsMobileMenuOpen={setIsMobileMenuOpen} />
+            <main className="container mx-auto px-0">
+                <section
+                    className="relative h-screen flex items-center justify-center bg-gradient-to-r from-[#CBAD8D] to-[#D1C7BD] text-[#3A2D28] overflow-hidden">
+                    <div className="absolute inset-0 z-0">
+                        <motion.img
+                            src="/natural-wooden-background.jpg"
+                            alt="Wood texture"
+                            className="w-full h-full object-cover"
+                            initial={{opacity: 0, scale: 1.1}}
+                            animate={{opacity: 0.2, scale: 1}}
+                            transition={{duration: 1.5}}
+                        />
+                    </div>
+                    <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
+                        <motion.h1
+                            className="text-5xl md:text-6xl font-bold text-[#3A2D28] mb-6"
+                            initial={{opacity: 0, y: -20}}
+                            animate={controls}
+                        >
+                            Our Crafted Products
+                        </motion.h1>
 
-                <div className="mb-8">
-                    <label htmlFor="category" className="block text-lg font-medium text-[#3A2D28] mb-2">Select
-                        Category:</label>
+                        <motion.p
+                            className="text-xl md:text-2xl text-[#3A2D28] mb-12"
+                            initial={{opacity: 0, y: 20}}
+                            animate={controls}
+                        >
+                            Explore our wide range of handcrafted wooden masterpieces
+                        </motion.p>
+                        <motion.div
+                            initial={{opacity: 0, y: 20}}
+                            animate={controls}
+                        >
+                            <a
+                                href="#product-list"
+                                className="inline-block bg-white text-[#3A2D28] px-8 py-3 rounded-full font-semibold hover:bg-[#F8F6F3] transition-colors duration-300 shadow-lg"
+                            >
+                                Discover Our Collection
+                            </a>
+                        </motion.div>
+                    </div>
+                    <motion.div
+                        className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+                        initial={{opacity: 0, y: 20}}
+                        animate={{opacity: 1, y: [0, 10, 0]}}
+                        transition={{duration: 1.5, repeat: Infinity, repeatType: "loop"}}
+                    >
+                        <ChevronDown className="text-white w-8 h-8"/>
+                    </motion.div>
+                    <div className="absolute bottom-0 left-0 right-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" className="w-full">
+                            <path
+                                fill="#F8F6F3"
+                                fillOpacity="1"
+                                d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,138.7C960,139,1056,117,1152,112C1248,107,1344,117,1392,122.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
+                            ></path>
+                        </svg>
+                    </div>
+                </section>
+
+                <div id="product-list" className="mb-8 mt-8 px-4">
+                    <label htmlFor="category" className="block text-lg font-medium text-[#3A2D28] mb-2">
+                        Select Category:
+                    </label>
                     <select
                         id="category"
                         value={selectedCategory}
@@ -234,20 +297,30 @@ function ProductListPage() {
                     </select>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-4">
                     {currentProducts.map((product) => (
-                        <div key={product.id} className="bg-[#EBE3DB] rounded-lg p-6 shadow-md">
-                            <img src={product.image} alt={product.name}
-                                 className="w-full h-48 object-cover rounded-lg mb-4"/>
-                            <h3 className="text-2xl font-semibold mb-2 text-[#3A2D28]">{product.name}</h3>
-                            <p className="text-[#3A2D28] whitespace-pre-line">{product.description}</p>
-                            <button
-                                onClick={() => openModal(product)}
-                                className="mt-4 px-4 py-2 bg-[#CBAD8D] text-[#3A2D28] rounded-lg hover:bg-[#A48374] transition-colors"
-                            >
-                                View Details
-                            </button>
-                        </div>
+                        <motion.div
+                            key={product.id}
+                            className="bg-[#EBE3DB] rounded-lg p-6 shadow-md flex flex-col justify-between"
+                            initial={{opacity: 0, y: 20}}
+                            animate={{opacity: 1, y: 0}}
+                            transition={{duration: 0.5}}
+                        >
+                            <div>
+                                <img src={product.image} alt={product.name}
+                                     className="w-full h-64 object-cover rounded-lg mb-4"/>
+                                <h3 className="text-2xl font-semibold mb-2 text-[#3A2D28]">{product.name}</h3>
+                                <p className="text-[#3A2D28] whitespace-pre-line">{product.description}</p>
+                            </div>
+                            <div className="flex justify-center mt-4">
+                                <button
+                                    onClick={() => openModal(product)}
+                                    className="bg-[#CBAD8D] text-[#3A2D28] px-4 py-2 rounded-full font-semibold hover:bg-[#A48374] transition-colors"
+                                >
+                                    View Details
+                                </button>
+                            </div>
+                        </motion.div>
                     ))}
                 </div>
 
@@ -256,7 +329,9 @@ function ProductListPage() {
                         <button
                             key={i + 1}
                             onClick={() => paginate(i + 1)}
-                            className={`mx-1 px-4 py-2 rounded-full ${currentPage === i + 1 ? 'bg-[#CBAD8D] text-[#3A2D28]' : 'bg-[#EBE3DB] text-[#3A2D28]'} hover:bg-[#A48374] transition-colors`}
+                            className={`mx-1 px-4 py-2 rounded-full ${
+                                currentPage === i + 1 ? 'bg-[#CBAD8D] text-[#3A2D28]' : 'bg-[#EBE3DB] text-[#3A2D28]'
+                            } hover:bg-[#A48374] transition-colors`}
                         >
                             {i + 1}
                         </button>
@@ -275,31 +350,24 @@ function ProductListPage() {
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
                     <div
                         className="bg-white p-4 rounded-lg shadow-lg max-w-lg w-full relative overflow-y-auto max-h-[80vh]">
-                        <button className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
-                                onClick={closeModal}>
+                        <button
+                            className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
+                            onClick={closeModal}
+                        >
                             &times;
                         </button>
-                        <img src={selectedProduct.image} alt={selectedProduct.name}
-                             className="w-full h-auto max-w-full max-h-[60vh] object-contain"/>
+                        <img
+                            src={selectedProduct.image}
+                            alt={selectedProduct.name}
+                            className="w-full h-auto max-w-full max-h-[60vh] object-contain"
+                        />
                         <h3 className="font-semibold text-lg mt-4">{selectedProduct.name}</h3>
                         <p className="text-[#A48374] whitespace-pre-line mt-2">{selectedProduct.description}</p>
                     </div>
                 </div>
             )}
 
-            <footer className="bg-[#3A2D28] py-8 mt-12">
-                <div className="container mx-auto px-4">
-                    <div className="flex flex-col md:flex-row justify-between items-center">
-                        <p className="text-[#F8F6F3]">&copy; 2024 Power Sash Enterprises. All rights reserved.</p>
-                        <nav className="flex space-x-4 mt-4 md:mt-0">
-                            <a href="#" className="text-[#D1C7BD] hover:text-[#CBAD8D] transition-colors">Privacy
-                                Policy</a>
-                            <a href="#" className="text-[#D1C7BD] hover:text-[#CBAD8D] transition-colors">Terms of
-                                Service</a>
-                        </nav>
-                    </div>
-                </div>
-            </footer>
+            <Footer/>
         </div>
     );
 }
